@@ -1,18 +1,18 @@
-import { assertTrue, assertFalse } from "./assert";
 import { Equals } from "../src/logical";
 import {
+  Diff,
+  Exact,
+  Intersection,
+  KeysOfType,
+  Lacks,
   Omit,
   Overwrite,
-  Diff,
-  Lacks,
-  Exact,
-  KeysOfType,
-  Intersection,
-  SetIntersection,
   SetDifference,
+  SetIntersection,
   SetUnion,
   ValuesOf,
 } from "../src/type";
+import { assertFalse, assertNever, assertTrue } from "./assert";
 
 assertTrue<Equals<Omit<{ a: string; b: number }, "a">, { b: number }>>(); // $ExpectType true
 // $ExpectType false
@@ -58,7 +58,7 @@ _exact({ a: "", b: 1 });
 
 // $ExpectType true
 assertTrue<
-  Equals<KeysOfType<{ a: number; b: number; c: boolean }, number>, "a" | "b">
+  Equals<KeysOfType<{ a: number; b: number; c: boolean, e: string | number }, number>, "a" | "b">
 >();
 
 // interface A {
@@ -79,10 +79,13 @@ assertTrue<
   >
 >();
 
+assertNever<SetIntersection<"a" | "b", "c" | "d">>();
 assertTrue<Equals<SetIntersection<"a" | "b", "b" | "c">, "b">>(); // $ExpectType true
+assertTrue<Equals<SetIntersection<"a" | "b" | "c" , "b" | "c">, "b" | "c">>(); // $ExpectType true
 
-assertTrue<Equals<SetIntersection<"a" | "b", "b" | "c">, "b">>(); // $ExpectType true
+assertTrue<Equals<SetDifference<"a" | "b", "c">, "a" | "b">>(); // $ExpectType true
 assertTrue<Equals<SetDifference<"a" | "b", "b">, "a">>(); // $ExpectType true
+
 assertTrue<Equals<SetUnion<"a" | "b", "b" | "c">, "a" | "b" | "c">>(); // $ExpectType true
 
 // $ExpectType true

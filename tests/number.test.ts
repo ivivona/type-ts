@@ -1,24 +1,24 @@
-import { assertTrue, assertFalse, assertNever } from "./assert";
 import { Equals } from "../src/logical";
 import {
-  Add,
+  _0,
   _1,
   _2,
   _3,
-  _0,
-  _5,
   _4,
+  _5,
+  _6,
   _7,
   _9,
+  Add,
+  EqualsTo as EQ,
   GreaterThan as GT,
   LowerThan as LT,
-  EqualsTo as EQ,
-  Substract,
-  _6,
   Multiply,
   Quotient,
   Remainder,
+  Substract,
 } from "../src/number";
+import { assertFalse, assertNever, assertTrue } from "./assert";
 
 assertTrue<Equals<Add<_0, _0>, _0>>(); // $ExpectType true
 assertTrue<Equals<Add<_0, _1>, _1>>(); // $ExpectType true
@@ -61,6 +61,7 @@ assertTrue<Equals<Quotient<_1, _3>, _0>>(); // $ExpectType true
 assertTrue<Equals<Quotient<_5, _1>, _5>>(); // $ExpectType true
 assertTrue<Equals<Quotient<_3, _2>, _1>>(); // $ExpectType true
 assertTrue<Equals<Quotient<_6, _2>, _3>>(); // $ExpectType true
+assertTrue<Equals<Quotient<_3, _3>, _1>>(); // $ExpectType true
 
 assertTrue<Equals<Remainder<_0, _2>, _0>>(); // $ExpectType true
 assertTrue<Equals<Remainder<_0, _1>, _0>>(); // $ExpectType true
@@ -68,3 +69,4 @@ assertTrue<Equals<Remainder<_1, _3>, _1>>(); // $ExpectType true
 assertTrue<Equals<Remainder<_5, _3>, _2>>(); // $ExpectType true
 assertTrue<Equals<Remainder<_3, _2>, _1>>(); // $ExpectType true
 assertTrue<Equals<Remainder<_6, _2>, _0>>(); // $ExpectType true
+assertTrue<Equals<Remainder<_3, _3>, _0>>(); // $ExpectType true

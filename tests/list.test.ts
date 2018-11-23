@@ -1,19 +1,19 @@
-import { assertNever, assertTrue, assertFalse } from "./assert";
 import {
-  Head,
-  Tail,
-  Last,
+  Concat,
   Cons,
   Drop,
-  Take,
-  Reverse,
-  Concat,
-  Zip,
-  Repeat,
+  Head,
+  Last,
   Length,
+  Repeat,
+  Reverse,
+  Tail,
+  Take,
+  Zip,
 } from "../src/list";
 import { Equals } from "../src/logical";
-import { _3, _2, _1, _9, _0, Multiply, Add } from "../src/number";
+import { _0, _1, _2, _3, _9, Add, Multiply } from "../src/number";
+import { assertFalse, assertNever, assertTrue } from "./assert";
 
 assertNever<Head<[]>>();
 assertTrue<Equals<Head<[1, 2, 3]>, 1>>(); // $ExpectType true

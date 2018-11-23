@@ -1,5 +1,5 @@
-import { Equals, And, Or, Not, Xor, If } from "../src/logical";
-import { assertTrue, assertFalse } from "./assert";
+import { And, Equals, If, Not, Or, Xor } from "../src/logical";
+import { assertFalse, assertTrue } from "./assert";
 
 assertTrue<Equals<true, true>>(); // $ExpectType true
 assertFalse<Equals<{ a: number }, true>>(); // $ExpectType false
