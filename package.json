@@ -4,7 +4,6 @@
   "description": "Typescript Type-level Playground",
   "main": "index.ts",
   "scripts": {
-    "prepublish": "npm run lint && npm test",
     "test": "dtslint tests",
     "lint": "tslint --project tsconfig.json --fix 'src/*.ts' 'index.d.ts'"
   },
