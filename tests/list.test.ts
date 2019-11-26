@@ -5,14 +5,15 @@ import {
   Head,
   Last,
   Length,
+  LengthN,
   Repeat,
   Reverse,
   Tail,
   Take,
-  Zip,
+  Zip
 } from "../src/list";
 import { Equals } from "../src/logical";
-import { _0, _1, _2, _3, _9, Add, Multiply } from "../src/number";
+import { _0, _1, _2, _3, _9, Add, Multiply } from "../src/nat";
 import { assertFalse, assertNever, assertTrue } from "./assert";
 
 assertNever<Head<[]>>();
@@ -32,6 +33,10 @@ assertTrue<Equals<Last<[1, 2, 3]>, 3>>(); // $ExpectType true
 assertTrue<Equals<Cons<1, []>, [1]>>(); // $ExpectType true
 assertTrue<Equals<Cons<1, Cons<2, []>>, [1, 2]>>(); // $ExpectType true
 assertTrue<Equals<Cons<1, [2, 3]>, [1, 2, 3]>>(); // $ExpectType true
+
+assertTrue<Equals<Cons<1, []>, [1]>>(); // $ExpectType true
+assertTrue<Equals<Cons<1, Cons<string, []>>, [1, string]>>(); // $ExpectType true
+assertTrue<Equals<Cons<1, [string, any]>, [1, string, any]>>(); // $ExpectType true
 
 assertTrue<Equals<Drop<[], _2>, []>>(); // $ExpectType true
 assertTrue<Equals<Drop<[1, 2], _1>, [2]>>(); // $ExpectType true
@@ -63,10 +68,16 @@ assertTrue<Equals<Repeat<0, _1>, [0]>>(); // $ExpectType true
 assertTrue<Equals<Repeat<0, _2>, [0, 0]>>(); // $ExpectType true
 assertTrue<Equals<Repeat<0, _3>, [0, 0, 0]>>(); // $ExpectType true
 
-assertTrue<Equals<Length<[]>, _0>>(); // $ExpectType true
-assertTrue<Equals<Length<[1]>, _1>>(); // $ExpectType true
-assertTrue<Equals<Length<[1, 2]>, _2>>(); // $ExpectType true
-assertTrue<Equals<Length<[1, 2, 3]>, _3>>(); // $ExpectType true
+assertTrue<Equals<Length<[]>, 0>>(); // $ExpectType true
+assertTrue<Equals<Length<[1]>, 1>>(); // $ExpectType true
+assertTrue<Equals<Length<[1, 2]>, 2>>(); // $ExpectType true
+assertTrue<Equals<Length<[1, 2, 3]>, 3>>(); // $ExpectType true
 type _10 = Add<_9, _1>;
 type _20 = Multiply<_10, _2>;
-assertTrue<Equals<Length<Repeat<0, _20>>, _20>>(); // $ExpectType true
+assertTrue<Equals<Length<Repeat<0, _20>>, 20>>(); // $ExpectType true
+
+assertTrue<Equals<LengthN<[]>, _0>>(); // $ExpectType true
+assertTrue<Equals<LengthN<[1]>, _1>>(); // $ExpectType true
+assertTrue<Equals<LengthN<[1, 2]>, _2>>(); // $ExpectType true
+assertTrue<Equals<LengthN<[1, 2, 3]>, _3>>(); // $ExpectType true
+assertTrue<Equals<LengthN<Repeat<0, _20>>, _20>>(); // $ExpectType true

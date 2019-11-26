@@ -14,7 +14,7 @@ export type Lacks<R, K extends string | number | symbol> = Omit<R, K> &
 export type Exact<T> = T & Record<never, never>;
 
 export type KeysOfType<R, T> = {
-  [K in keyof R]: R[K] extends T ? K : never
+  [K in keyof R]: R[K] extends T ? K : never;
 }[keyof R];
 
 export type DeepMutable<T> = { -readonly [K in keyof T]: DeepReadonly<T[K]> };
@@ -44,3 +44,9 @@ export type ValuesOf<R> = R extends { [K in keyof R]: infer V } ? V : never;
 export type KeysOf<R> = keyof R;
 
 export type ReturnType<F> = F extends (...a: any[]) => infer R ? R : never;
+
+export type Cast<T1, T2> = T1 extends infer R
+  ? R extends T2
+    ? R
+    : never
+  : never;

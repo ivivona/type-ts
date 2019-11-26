@@ -50,11 +50,11 @@ assertFalse<
 >();
 
 type _E = Exact<{ a: string; b: number }>;
-declare function _exact(e: _E): void;
-_exact({}); // $ExpectError
-_exact({ a: "" }); // $ExpectError
-_exact({ a: "", b: 1, c: true }); // $ExpectError
-_exact({ a: "", b: 1 });
+declare function testExact(e: _E): void;
+testExact({}); // $ExpectError
+testExact({ a: "" }); // $ExpectError
+testExact({ a: "", b: 1, c: true }); // $ExpectError
+testExact({ a: "", b: 1 });
 
 // $ExpectType true
 assertTrue<
