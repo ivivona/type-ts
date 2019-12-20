@@ -10,7 +10,8 @@ import {
   Reverse,
   Tail,
   Take,
-  Zip
+  Zip,
+  Push
 } from "../src/list";
 import { Equals } from "../src/logical";
 import { _0, _1, _2, _3, _9, Add, Multiply } from "../src/nat";
@@ -81,3 +82,11 @@ assertTrue<Equals<LengthN<[1]>, _1>>(); // $ExpectType true
 assertTrue<Equals<LengthN<[1, 2]>, _2>>(); // $ExpectType true
 assertTrue<Equals<LengthN<[1, 2, 3]>, _3>>(); // $ExpectType true
 assertTrue<Equals<LengthN<Repeat<0, _20>>, _20>>(); // $ExpectType true
+
+assertTrue<Equals<Push<1, []>, [1]>>(); // $ExpectType true
+assertTrue<Equals<Push<1, Cons<2, []>>, [2, 1]>>(); // $ExpectType true
+assertTrue<Equals<Push<1, [2, 3]>, [3, 2, 1]>>(); // $ExpectType true
+
+assertTrue<Equals<Push<1, []>, [1]>>(); // $ExpectType true
+assertTrue<Equals<Push<1, Cons<string, []>>, [string, 1]>>(); // $ExpectType true
+assertTrue<Equals<Push<1, [string, any]>, [any, string, 1]>>(); // $ExpectType true

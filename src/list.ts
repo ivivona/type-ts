@@ -106,3 +106,9 @@ type ConsTN<T, L extends T[], N extends Nat> = N extends Positive
 export type TupleOf<T, L extends Nat> = L extends Positive
   ? ConsTN<T, [], L>
   : [];
+
+export type Push<H, T extends any[]> = Cons<H, T> extends infer R
+  ? R extends any[]
+    ? Reverse<R>
+    : never
+  : never;
