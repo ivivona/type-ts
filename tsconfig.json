@@ -6,6 +6,7 @@
     "module": "commonjs",
     "strict": true,
     "noImplicitReturns": true,
+    "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
@@ -16,5 +17,5 @@
     "forceConsistentCasingInFileNames": true,
     "lib": ["es6"]
   },
-  "include": ["./index.d.ts"]
+  "include": ["./index.d.ts", "test/*"]
 }

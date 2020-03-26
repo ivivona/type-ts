@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Concat,
   Cons,
@@ -11,23 +12,23 @@ import {
   Tail,
   Take,
   Zip,
-  Push
+  Push,
 } from "../src/list";
 import { Equals } from "../src/logical";
 import { _0, _1, _2, _3, _9, Add, Multiply } from "../src/nat";
 import { assertFalse, assertNever, assertTrue } from "./assert";
 
-assertNever<Head<[]>>();
+assertNever<Head<[]>>(); // $ExpectType never
 assertTrue<Equals<Head<[1, 2, 3]>, 1>>(); // $ExpectType true
 assertFalse<Equals<Head<[1, 2, 3]>, 2>>(); // $ExpectType false
 assertFalse<Equals<Head<[number, 2, 3]>, 1>>(); // $ExpectType false
 assertTrue<Equals<Head<[string, 2, 3]>, string>>(); // $ExpectType true
 
-assertNever<Tail<[]>>();
+assertNever<Tail<[]>>(); // $ExpectType never
 assertTrue<Equals<Tail<[1, 2]>, [2]>>(); // $ExpectType true
 assertTrue<Equals<Tail<[1, 2, 3]>, [2, 3]>>(); // $ExpectType true
 
-assertNever<Last<[]>>();
+assertNever<Last<[]>>(); // $ExpectType never
 assertTrue<Equals<Last<[1, 2]>, 2>>(); // $ExpectType true
 assertTrue<Equals<Last<[1, 2, 3]>, 3>>(); // $ExpectType true
 

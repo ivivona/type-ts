@@ -58,7 +58,13 @@ testExact({ a: "", b: 1 });
 
 // $ExpectType true
 assertTrue<
-  Equals<KeysOfType<{ a: number; b: number; c: boolean, e: string | number }, number>, "a" | "b">
+  Equals<
+    KeysOfType<
+      { a: number; b: number; c: boolean; e: string | number },
+      number
+    >,
+    "a" | "b"
+  >
 >();
 
 // interface A {
@@ -81,7 +87,7 @@ assertTrue<
 
 assertNever<SetIntersection<"a" | "b", "c" | "d">>();
 assertTrue<Equals<SetIntersection<"a" | "b", "b" | "c">, "b">>(); // $ExpectType true
-assertTrue<Equals<SetIntersection<"a" | "b" | "c" , "b" | "c">, "b" | "c">>(); // $ExpectType true
+assertTrue<Equals<SetIntersection<"a" | "b" | "c", "b" | "c">, "b" | "c">>(); // $ExpectType true
 
 assertTrue<Equals<SetDifference<"a" | "b", "c">, "a" | "b">>(); // $ExpectType true
 assertTrue<Equals<SetDifference<"a" | "b", "b">, "a">>(); // $ExpectType true

@@ -43,10 +43,10 @@ export type SetIntersection<
 export type ValuesOf<R> = R extends { [K in keyof R]: infer V } ? V : never;
 export type KeysOf<R> = keyof R;
 
-export type ReturnType<F> = F extends (...a: any[]) => infer R ? R : never;
-
 export type Cast<T1, T2> = T1 extends infer R
   ? R extends T2
     ? R
     : never
   : never;
+
+export type Pretty<A> = { [K in keyof A]: A[K] };
