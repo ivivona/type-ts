@@ -3,7 +3,6 @@
 Typescript Type-level playground
 
 This project is a playground of type-level operations for TypeScript.
-Highly experimental and unusable, please use one of the [recommended libraries](https://github.com/ivivona/type-ts/#similar-projects).
 
 ## Installation
 
