@@ -17,7 +17,16 @@ The stable version is tested against TypeScript 3.1.6+.
 
 ## API
 
-### Boolean
+### Logic
+
+#### Extends<A, B>
+
+Returns `true` if `A` extends from `B`, `false` otherwise.
+
+```ts
+Extends<'foo', string> // true
+Extends<string, number> // false
+```
 
 #### Equals<A, B>
 
@@ -156,7 +165,9 @@ Picks from `A` only the keys of a certain type `B`.
 KeysOfType<{a: string, b: string | boolean, c: boolean, d: string}, string> // "a" | "d"
 ```
 
-#### DeepReadonly<A>
+#### DeepReadonly<A>, DeepMutable<A>, DeepRequired<A>, DeepPartial<A>
+
+Recursively sets modifiers `readonly` and `?`.
 
 ```ts
 interface A {
@@ -211,6 +222,14 @@ Union of the literal union sets `A` and `B`.
 
 ```ts
 SetUnion<"a" | "b", "b" | "c"> // "a" | "b" | "c"
+```
+
+#### Pretty
+
+Display purpouse only. Useful when dealing with complex types and want to see something simpler in the IDE.
+
+```ts
+Pretty<{ a: 1 } & { b: 2 }> // { a: 1, b: 2 }
 ```
 
 ### Number
@@ -297,9 +316,26 @@ EqualsTo<_0, _1> // false
 EqualsTo<_2, _2> // true
 ```
 
+#### AsNat<N>
+
+Convert a `number` to a `Nat`. Do not use with negative numbers.
+
+```ts
+AsNat<2> // _2 or Succ<Succ<_0>>
+```
+
+#### AsNumber<N>
+
+Convert a `Nat` to a `number`.
+
+```ts
+AsNumber<_2> // 2
+```
+
 ## Similar projects
 
 - [`typelevel-ts`](https://github.com/gcanti/typelevel-ts), a type lib by [@gcanti](https://github.com/gcanti), the preferred choice.
 - [`type-zoo`](https://github.com/pelotom/type-zoo)
 - [`typical`](https://github.com/tycho01/typical)
 - [`typepark`](https://github.com/kgtkr/typepark)
+- [`ts-toolbelt`](https://github.com/pirix-gh/ts-toolbelt)
