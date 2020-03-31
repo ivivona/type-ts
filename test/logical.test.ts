@@ -8,6 +8,7 @@ assertTrue<And<true, true>>(); // $ExpectType true
 assertFalse<And<false, true>>(); // $ExpectType false
 assertFalse<And<false, false>>(); // $ExpectType false
 assertFalse<And<true, false>>(); // $ExpectType false
+assertFalse<And<true, never>>(); // $ExpectType false
 
 assertTrue<Or<true, true>>(); // $ExpectType true
 assertTrue<Or<false, true>>(); // $ExpectType true

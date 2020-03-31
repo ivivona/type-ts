@@ -1,15 +1,12 @@
-export type Omit<R, O extends string | number | symbol> = Pick<
-  R,
-  Exclude<keyof R, O>
->;
+export type Index = string | number | symbol;
+
+export type Omit<R, O extends Index> = Pick<R, Exclude<keyof R, O>>;
 
 export type Overwrite<A, B> = Pick<A, Exclude<keyof A, keyof B>> & B;
 
-export type Diff<A, O extends string | number | symbol> = Omit<A, O> &
-  Partial<Omit<A, O>>;
+export type Diff<A, O extends Index> = Omit<A, O> & Partial<Omit<A, O>>;
 
-export type Lacks<R, K extends string | number | symbol> = Omit<R, K> &
-  { [C in K]?: never };
+export type Lacks<R, K extends Index> = Omit<R, K> & { [C in K]?: never };
 
 export type Exact<T> = T & Record<never, never>;
 
@@ -29,7 +26,7 @@ export type Intersection<A, B> = Omit<
   keyof Union<Difference<A, B>, Difference<B, A>>
 >;
 
-type LiteralUnion = string | number | symbol;
+type LiteralUnion = Index;
 export type SetDifference<
   A extends LiteralUnion,
   B extends LiteralUnion
@@ -50,3 +47,14 @@ export type Cast<T1, T2> = T1 extends infer R
   : never;
 
 export type Pretty<A> = { [K in keyof A]: A[K] };
+
+/**
+ * Use to prevent a usage of type `T` from being inferred in other generics.
+ *
+ * @see https://github.com/Microsoft/TypeScript/issues/14829#issuecomment-520191642
+ */
+export type NoInfer<T> = T & { [K in keyof T]: T[K] };
+
+export type JSONValue = string | number | boolean | JSONArray | JSONObject;
+export type JSONObject = { [key: string]: JSONValue };
+export type JSONArray = JSONValue[];

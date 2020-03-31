@@ -13,10 +13,13 @@ import {
   Take,
   Zip,
   Push,
+  Map,
+  Reduce,
 } from "../src/list";
 import { Equals } from "../src/logical";
-import { _0, _1, _2, _3, _9, Add, Multiply } from "../src/nat";
+import { _0, _1, _2, _3, _9, Add, Multiply, Nat, _6 } from "../src/nat";
 import { assertFalse, assertNever, assertTrue } from "./assert";
+import { AsNat } from "../src/number";
 
 assertNever<Head<[]>>(); // $ExpectType never
 assertTrue<Equals<Head<[1, 2, 3]>, 1>>(); // $ExpectType true
@@ -91,3 +94,16 @@ assertTrue<Equals<Push<1, [3, 2]>, [3, 2, 1]>>(); // $ExpectType true
 assertTrue<Equals<Push<1, []>, [1]>>(); // $ExpectType true
 assertTrue<Equals<Push<1, Cons<string, []>>, [string, 1]>>(); // $ExpectType true
 assertTrue<Equals<Push<1, [string, any]>, [string, any, 1]>>(); // $ExpectType true
+
+declare module "../src/list" {
+  interface Map1<A = unknown> {
+    AsNat: A extends number ? AsNat<A> : never;
+  }
+
+  interface Reduce2<A = unknown, B = unknown> {
+    Add: A extends Nat ? (B extends Nat ? Add<A, B> : never) : never;
+  }
+}
+
+assertTrue<Equals<Map<[0, 1, 2], "AsNat">, [_0, _1, _2]>>(); // $ExpectType true
+assertTrue<Equals<Reduce<[_1, _2, _3], "Add", _0>, _6>>(); // $ExpectType true
