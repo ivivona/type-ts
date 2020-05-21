@@ -149,7 +149,11 @@ type FlattenAcc<
   "0": R;
   n: Head<A> extends infer H
     ? H extends AnyStaticArray
-      ? FlattenAcc<Tail<A>, FlattenAcc<H, R>>
+      ? FlattenAcc<H, R> extends infer T
+        ? T extends AnyStaticArray
+          ? FlattenAcc<Tail<A>, T>
+          : never
+        : never
       : FlattenAcc<Tail<A>, Cons<H, R>>
     : R;
 }[A extends Nil ? "0" : "n"];

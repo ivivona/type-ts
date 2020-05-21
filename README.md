@@ -341,12 +341,192 @@ Convert a `number` to a `Nat`. Do not use with negative numbers.
 AsNat<2> // _2 or Succ<Succ<_0>>
 ```
 
-#### AsNumbe\r<N>
+#### AsNumbe\<N>
 
 Convert a `Nat` to a `number`.
 
 ```ts
 AsNumber<_2> // 2
+```
+
+### List
+
+#### Tuple\<A>
+
+Non empty tuple.
+
+#### Nil
+
+Empty tuple.
+
+#### StaticArray\<A>
+
+Compile time arrays (aka array literals).
+
+#### AnyStaticArray
+
+Alias for `StaticArray<any>`.
+
+#### Head\<A>
+
+Returns the first type of the static array.
+
+```ts
+Head<[]> // never
+Head<[1, 2, 3]> // 1
+Head<[number, 2, 3]> // number
+```
+
+#### Tail\<A>
+
+Tail of the static array.
+
+```ts
+Tail<[]> // never
+Tail<[1, 2]> // [2]
+Tail<[1, 2, 3]> // [2, 3]
+```
+
+#### Last\<A>
+
+Returns the last type of the static array.
+
+```ts
+Last<[]> // never
+Last<[1, 2]> // 2
+Last<[1, 2, 3]> // 3
+```
+
+#### Cons<H, L>
+
+Adds a type to the front of the static array.
+
+```ts
+Cons<1, []> // [1]
+Cons<1, Cons<2, []>> // [1, 2]
+Cons<1, [2, 3]> // [1, 2, 3]
+```
+
+#### Drop<A, N>
+
+Drops `N` elements from the front of the static array.
+
+```ts
+Drop<[], _2> // []
+Drop<[1, 2], _1> // [2]
+Drop<[1, 2, 3], _2> // [3]
+```
+
+#### Reverse\<A>
+
+Reverses a static array.
+
+```ts
+Reverse<[]> // []
+Reverse<[1, 2]> // [2, 1]
+Reverse<[1, 2, 3]> // [3, 2, 1]
+```
+
+#### Take<A, N>
+
+Return the first `N` types of the static array.
+
+```ts
+Take<[], _2> // []
+Take<[1, 2], _1> // [1]
+Take<[1, 2, 3], _2> // [1, 2]
+```
+
+#### Concat<A, B>
+
+Concatenates two static arrays.
+
+```ts
+Concat<[], []> // []
+Concat<[], [1]> // [1]
+Concat<[2], [1]> // [2, 1]
+Concat<[1, 2], [3]> // [1, 2, 3]
+Concat<[1], [2, 3]> // [1, 2, 3]
+```
+
+#### Zip<A, B>
+
+Zips two static arrays into one with length equals to the shortest length where at each position there is a tuple with the types of each one of them.
+
+```ts
+Zip<[], []> // []
+Zip<[], [1]> // []
+Zip<[2], [1]> // [[2, 1]]
+Zip<[1, 2], [3]> // [[1, 3]]
+Zip<[1], [2, 3]> // [[1, 2]]
+Zip<[1, 2], [3, 4]> // [[1, 3], [2, 4]]
+```
+
+#### Repeat<A, N>
+
+Returns a static array of length `N` with `A` in each position.
+
+```ts
+Repeat<0, _0> // []
+Repeat<0, _1> // [0]
+Repeat<0, _2> // [0, 0]
+Repeat<0, _3> // [0, 0, 0]
+```
+
+#### Length\<A>
+
+Returns the length of a static array.
+
+```ts
+Length<[]> // 0
+Length<[1]> // 1>
+Length<[1, 2]> // 2
+Length<[1, 2, 3]> // 3
+
+type _10 = Add<_9, _1>;
+type _20 = Multiply<_10, _2>;
+Length<Repeat<0, _20>> // 20
+```
+
+#### LengthN\<A>
+
+Same as `Length` but returns a `Nat` instead.
+
+```ts
+LengthN<[]> // _0
+LengthN<[1]> // _1
+LengthN<[1, 2]> // _2
+LengthN<[1, 2, 3]> // _3
+LengthN<Repeat<0, _20>> // _20
+```
+
+#### Push<A, B>
+
+Adds a type to the end of a static array.
+
+```ts
+Push<1, []> // [1]
+Push<1, Cons<2, []>> // [2, 1]
+Push<1, [3, 2]> // [3, 2, 1]
+```
+
+#### Map<A, B> and Reduce<A, B>
+
+Type-level version of this operations.
+
+```ts
+declare module "type-ts/list" {
+  interface Map1<A = unknown> {
+    AsNat: A extends number ? AsNat<A> : never;
+  }
+
+  interface Reduce2<A = unknown, B = unknown> {
+    Add: A extends Nat ? (B extends Nat ? Add<A, B> : never) : never;
+  }
+}
+
+Map<[0, 1, 2], "AsNat"> // [_0, _1, _2]
+Reduce<[_1, _2, _3] "Add", _0> // _6
 ```
 
 ## Similar projects
