@@ -58,3 +58,9 @@ export type NoInfer<T> = T & { [K in keyof T]: T[K] };
 export type JSONValue = string | number | boolean | JSONArray | JSONObject;
 export type JSONObject = { [key: string]: JSONValue };
 export type JSONArray = JSONValue[];
+
+export type Awaited<T> = {
+  true: T extends Promise<infer R> ? Awaited<R> : Promise<T>;
+  false: Promise<T>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+}[T extends Promise<any> ? "true" : "false"];

@@ -11,6 +11,7 @@ import {
   SetIntersection,
   SetUnion,
   ValuesOf,
+  Awaited,
 } from "../src/type";
 import { assertFalse, assertNever, assertTrue } from "./assert";
 
@@ -101,3 +102,10 @@ assertTrue<
     number | boolean | string
   >
 >();
+
+assertTrue<Equals<Awaited<number>, Promise<number>>>(); // $ExpectType true
+// $ExpectType true
+assertTrue<
+  Equals<Awaited<Promise<Promise<Promise<string>>>>, Promise<string>>
+>();
+assertTrue<Equals<Awaited<Awaited<Awaited<boolean>>>, Promise<boolean>>>(); // $ExpectType true

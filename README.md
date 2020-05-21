@@ -63,7 +63,7 @@ Xor<false, true> // true
 Xor<true, true> // false
 ```
 
-#### Not<A>
+#### Not\<A>
 
 Returns `true` if `A` is `false`. `false` otherwise.
 
@@ -141,7 +141,7 @@ declare function f(x: Lacks<{ a: string; b: number }, "a">): void;
 f({ a: "foo", b: 1 });
 ```
 
-#### Exact<A>
+#### Exact\<A>
 
 Encodes that `A` cannot have extra propeties.
 
@@ -164,7 +164,7 @@ Picks from `A` only the keys of a certain type `B`.
 KeysOfType<{a: string, b: string | boolean, c: boolean, d: string}, string> // "a" | "d"
 ```
 
-#### DeepReadonly<A>, DeepMutable<A>, DeepRequired<A>, DeepPartial<A>
+#### DeepReadonly\<A>, DeepMutable\<A>, DeepRequired\<A>, DeepPartial\<A>
 
 Recursively sets modifiers `readonly` and `?`.
 
@@ -188,7 +188,7 @@ Extracts from `A` only the properties found on `B`.
 Intersection<{ a: number; b: number }, { b: number; c: number }> // { b: number }
 ```
 
-#### ValuesOf<A>
+#### ValuesOf\<A>
 
 Returns the union of all value types from `A`.
 
@@ -206,7 +206,7 @@ SetIntersection<"a" | "b", "b" | "c"> // "b"
 SetIntersection<"a" | "b" | "c" , "b" | "c"> // "b" | "c"
 ```
 
-#### SetDifference
+#### SetDifference<A, B>
 
 Difference of the literal union sets `A` and `B`.
 
@@ -215,7 +215,7 @@ SetDifference<"a" | "b", "c"> // "a" | "b"
 SetDifference<"a" | "b", "b"> // "a"
 ```
 
-#### SetUnion
+#### SetUnion<A, B>
 
 Union of the literal union sets `A` and `B`.
 
@@ -223,12 +223,30 @@ Union of the literal union sets `A` and `B`.
 SetUnion<"a" | "b", "b" | "c"> // "a" | "b" | "c"
 ```
 
-#### Pretty
+#### Pretty\<A>
 
 Display purpouse only. Useful when dealing with complex types and want to see something simpler in the IDE.
 
 ```ts
 Pretty<{ a: 1 } & { b: 2 }> // { a: 1, b: 2 }
+```
+
+#### NoInfer\<A>
+
+Use to prevent a usage of type `T` from being inferred in other generics. [See](https://github.com/Microsoft/TypeScript/issues/14829#issuecomment-520191642)
+
+#### JSONValue
+
+Represents JSON representable types.
+
+#### Awaited\<A>
+
+Unwraps nested `Promise`s. Typescript does not collapse nested promises. [See](https://github.com/microsoft/TypeScript/pull/35998)
+
+```ts
+type x = Awaited<number>; // Promise<number>
+type y = Awaited<Promise<Promise<Promise<string>>>>; // Promise<string>
+type z = Awaited<Awaited<Awaited<boolean>>>; // Promise<boolean>
 ```
 
 ### Number
@@ -239,7 +257,7 @@ Peano numbers implementation.
 
 Zero
 
-#### Succ<N>
+#### Succ\<N>
 
 ```ts
 Succ<Zero> // _1
@@ -315,7 +333,7 @@ EqualsTo<_0, _1> // false
 EqualsTo<_2, _2> // true
 ```
 
-#### AsNat<N>
+#### AsNat\<N>
 
 Convert a `number` to a `Nat`. Do not use with negative numbers.
 
@@ -323,7 +341,7 @@ Convert a `number` to a `Nat`. Do not use with negative numbers.
 AsNat<2> // _2 or Succ<Succ<_0>>
 ```
 
-#### AsNumber<N>
+#### AsNumbe\r<N>
 
 Convert a `Nat` to a `number`.
 
@@ -333,7 +351,7 @@ AsNumber<_2> // 2
 
 ## Similar projects
 
-- [`typelevel-ts`](https://github.com/gcanti/typelevel-ts), a type lib by [@gcanti](https://github.com/gcanti), the preferred choice.
+- [`typelevel-ts`](https://github.com/gcanti/typelevel-ts).
 - [`type-zoo`](https://github.com/pelotom/type-zoo)
 - [`typical`](https://github.com/tycho01/typical)
 - [`typepark`](https://github.com/kgtkr/typepark)
