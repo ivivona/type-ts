@@ -24,7 +24,10 @@ assertFalse<
 assertTrue<
   Equals<Omit<{ a: string; b: number }, "c">, { a: string; b: number }>
 >();
-assertTrue<Equals<Omit<{ a: string; b: number }, "a" | "b">, {}>>(); // $ExpectType true
+// $ExpectType true
+assertTrue<
+  Equals<Omit<{ a: string; b: number }, "a" | "b">, Record<string, unknown>>
+>();
 
 // $ExpectType true
 assertTrue<
@@ -51,11 +54,14 @@ assertFalse<
 >();
 
 type _E = Exact<{ a: string; b: number }>;
-declare function testExact(e: _E): void;
-testExact({}); // $ExpectError
-testExact({ a: "" }); // $ExpectError
-testExact({ a: "", b: 1, c: true }); // $ExpectError
-testExact({ a: "", b: 1 });
+// $ExpectType false
+assertFalse<Equals<_E, Record<string, unknown>>>();
+// $ExpectType false
+assertFalse<Equals<_E, { a: string }>>();
+// $ExpectType false
+assertFalse<Equals<_E, { a: string; b: number; c: boolean }>>();
+// $ExpectType true
+assertTrue<Equals<_E, { a: string; b: number }>>();
 
 // $ExpectType true
 assertTrue<

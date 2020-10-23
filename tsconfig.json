@@ -6,16 +6,23 @@
     "module": "commonjs",
     "strict": true,
     "noImplicitReturns": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "noEmitOnError": true,
     "allowJs": false,
-    "target": "es5",
+    "target": "ES2017",
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es6"]
+    "pretty": true,
+    "removeComments": false,
+    "lib": [
+      "ESNext"
+    ]
   },
-  "include": ["./index.d.ts", "test/*"]
+  "include": [
+    ".eslintrc.js",
+    "src/*",
+    "test/*"
+  ]
 }

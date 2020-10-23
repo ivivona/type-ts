@@ -2,7 +2,11 @@ export type ForceBoolean<A> = true extends A ? true : false;
 
 export type Extends<A, B> = A extends B ? true : false;
 
-export type Equals<A, B> = And<Extends<A, B>, Extends<B, A>>;
+export type Equals<A, B> = [A] extends [B]
+  ? [B] extends [A]
+    ? true
+    : false
+  : false;
 
 export type And<A extends boolean, B extends boolean> = ForceBoolean<
   A

@@ -1,3 +1,5 @@
+/*eslint no-undef: "off"*/
+
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
@@ -12,4 +14,14 @@ module.exports = {
     "plugin:prettier/recommended",
     "plugin:eslint-plugin-expect-type/recommended",
   ],
+  rules: {
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
+        ignoreRestSiblings: true,
+      },
+    ],
+  },
 };

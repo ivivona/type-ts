@@ -3,6 +3,7 @@ import { assertFalse, assertTrue } from "./assert";
 
 assertTrue<Equals<true, true>>(); // $ExpectType true
 assertFalse<Equals<{ a: number }, true>>(); // $ExpectType false
+assertFalse<Equals<number, string | number>>(); // $ExpectType false
 
 assertTrue<And<true, true>>(); // $ExpectType true
 assertFalse<And<false, true>>(); // $ExpectType false
